@@ -11,7 +11,8 @@ namespace Models
 		public int ID { get; set; }
 
 		[Required]
-		public Cinema Cinema { get; set; }
+		[ForeignKey("CinemaID")]
+		public int CinemaID { get; set; }
 
 		[Required]
 		[MaxLength(80)]
