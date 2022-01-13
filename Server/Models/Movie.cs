@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -35,8 +36,10 @@ namespace Models
 		[MaxLength(50)]
 		public string Director { get; set; }
 
+		[JsonIgnore]
 		public List<Genre> Genres { get; set; }
 
+		[JsonIgnore]
 		public List<Screening> Screenings { get; set; }
 	}
 }

@@ -1,0 +1,57 @@
+body {
+	font-family: 'Segoe UI';
+	color: white;
+	background-color: #B1D0E0;
+}
+
+.cinemaContainer {
+	margin: 15px;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+.cinemaHeader {
+	background-color: #1A374D;
+	display: flex;
+	/* flex-wrap: wrap;	 */
+	align-items: stretch;
+}
+
+.headerBox {
+	padding-left: 30px;
+}
+
+.cinemaContent {
+	padding: 30px;
+	background-color: #406882;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	gap: 15px;
+}
+
+.movieContainer {
+	min-width: 150px;
+	flex-basis: 18%;
+	background-color: seashell ;
+	position: relative;
+	z-index: 1;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.movieContainer:hover {
+	cursor: pointer;
+}
+
+.titleContainer {
+	font-size: calc(1vw + 2vh);
+	color: #1A374D;
+	position: absolute;
+	left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+	text-align: center;
+	z-index: -1;
+}
