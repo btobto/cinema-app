@@ -4,6 +4,37 @@ body {
 	background-color: #B1D0E0;
 }
 
+/* h1 {
+	width: fit-content;
+} */
+
+.btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 2px solid black;
+}
+
+h1:hover {
+	cursor: pointer;
+}
+
+label {
+	font-size: 20px;
+}
+
+input {
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 15px;
+}
+
+button {
+	background-color: transparent;
+	outline: none;
+	color: white;
+}
+
 .cinemaContainer {
 	margin: 15px;
 	overflow: hidden;
@@ -13,22 +44,59 @@ body {
 .cinemaHeader {
 	background-color: #1A374D;
 	display: flex;
-	/* flex-wrap: wrap;	 */
+	flex-wrap: wrap;	
 	align-items: stretch;
 }
 
 .headerBox {
-	padding-left: 30px;
+	padding: 25px;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	flex-grow: 1;
+	border: 4px;
+}
+
+.cinemaInfo {
+	margin: 0;
+}
+
+.userContainer {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.outline {
+	border: 3px solid white;
+	border-radius: 40px;
+	/* background-color: #406882; */
+	display: flex;
+	justify-content: center;
+	min-width: 200px;
+}
+
+.outline:hover {
+	cursor: pointer;
 }
 
 .cinemaContent {
 	padding: 30px;
 	background-color: #406882;
 	display: flex;
-	align-items: center;
+}
+
+.showMovies {
+	align-content: flex-start;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
 	gap: 15px;
+}
+
+.showMenu {
+	flex-flow: column;
+	align-items: center;
 }
 
 .movieContainer {
@@ -54,4 +122,11 @@ body {
     transform: translate(-50%,-50%);
 	text-align: center;
 	z-index: -1;
+}
+
+@media screen and (max-width: 767px) {
+	.cinemaInfo {
+		display: flex;
+		justify-content: center;
+	}
 }
