@@ -157,9 +157,10 @@ export class CinemaView {
 		// form
 
 		const form = document.createElement("form");
+		form.action = "javascript:this.cinema.checkLogin()"
 
-		this.drawInput(form, "email", "E-mail:");
-		this.drawInput(form, "password", "Password:");
+		this.drawInput(form, "email", "E-mail:", "email");
+		this.drawInput(form, "password", "Password:", "password");
 
 		// submit button
 
@@ -170,11 +171,34 @@ export class CinemaView {
 		text.innerHTML = "Log in";
 		submitBtn.appendChild(text);
 
+		submitBtn.addEventListener("click", async event => {
+			event.preventDefault();
+			if (form.checkValidity()) {
+				
+				// const formData = new FormData(form);
+				// formData.append("cinemaId", this.cinema.id);
+				// for (const pair of formData) {
+				// 	alert(pair[0] + ", " + pair[1]);
+				// } 
+				await this.cinema.login(form);
+				// const formData = new FormData();
+				// for (const el of form.elements) {
+				// 	if (el) {
+						
+				// 	alert(el.value);
+				// 	}
+				// }
+
+			} else {
+				form.reportValidity();
+			}
+		});
+
 		div.style.marginBottom = "20px";
 		div.appendChild(submitBtn);
-		form.appendChild(div);
-	
+		// form.appendChild(div);
 		host.appendChild(form);
+		host.appendChild(div);
 	}
 
 	async drawRegisterMenu() {
@@ -201,11 +225,11 @@ export class CinemaView {
 
 		const form = document.createElement("form");
 
-		this.drawInput(form, "text", "First name:");
-		this.drawInput(form, "text", "Last name:");
-		this.drawInput(form, "email", "E-mail:");
-		this.drawInput(form, "password", "Password:");
-		this.drawInput(form, "tel", "Phone number:");
+		this.drawInput(form, "text", "First name:", "firstName");
+		this.drawInput(form, "text", "Last name:", "lastName");
+		this.drawInput(form, "email", "E-mail:", "email");
+		this.drawInput(form, "password", "Password:", "password");
+		this.drawInput(form, "tel", "Phone number:", "phoneNumber");
 
 		// submit button
 
@@ -224,13 +248,14 @@ export class CinemaView {
 
 	}
 
-	async drawInput(form, inputType, labelText) {
+	async drawInput(form, inputType, labelText, inputName) {
 		let div = document.createElement("div");
 
 		// label div
 
 		let container = document.createElement("div");
 		let label = document.createElement("label");
+		label.htmlFor = inputName;
 		label.innerHTML = labelText;
 		container.appendChild(label);
 		div.appendChild(container);
@@ -240,6 +265,7 @@ export class CinemaView {
 		container = document.createElement("div");
 		let input = document.createElement("input");
 		input.type = inputType;
+		input.name = inputName;
 		input.required = true;
 		container.appendChild(input);
 		div.style.marginBottom = "15px";

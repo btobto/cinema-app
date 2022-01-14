@@ -23,15 +23,12 @@ namespace Models
 		[MaxLength(64)]
 		public string Password { get; set; }
 		
-		[Required]
 		[MaxLength(50)]
 		public string FirstName { get; set; }
 		
-		[Required]
 		[MaxLength(50)]
 		public string LastName { get; set; }
 		
-		[Required]
 		// [Phone]
 		[MaxLength(15)]
 		public string PhoneNumber { get; set; }

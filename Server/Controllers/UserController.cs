@@ -57,20 +57,20 @@ namespace Server.Controllers
 
 		[Route("Login")]
 		[HttpPost]
-		public ActionResult Login(int cinemaId, string email, string password)
+		public ActionResult Login([FromBody] User user)
 		{
 			try
 			{
-				var user = Context.Users.Where(p => p.Email == email && p.CinemaID == cinemaId).FirstOrDefault();
+				var existingUser = Context.Users.Where(p => p.Email == user.Email && p.CinemaID == user.CinemaID).FirstOrDefault();
 
-				if (user == null)
+				if (existingUser == null)
 				{
-					return BadRequest("An account with this email address doesn't exist.");
+					return StatusCode(404, "An account with this email address doesn't exist.");
 				}
 
-				if (!PasswordHasher.Verify(password, user.Password))
+				if (!PasswordHasher.Verify(user.Password, existingUser.Password))
 				{
-					return BadRequest("Incorrect password.");
+					return StatusCode(403, "Incorrect password.");
 				}
 
 				return Ok("Login successful.");
