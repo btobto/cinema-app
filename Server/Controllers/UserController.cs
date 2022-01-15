@@ -18,7 +18,7 @@ namespace Server.Controllers
 
 		[Route("Register")]
 		[HttpPost]
-		public ActionResult Register([FromBody] User user)
+		public ActionResult Register([FromForm] User user)
 		{
 			try
 			{
@@ -57,7 +57,7 @@ namespace Server.Controllers
 
 		[Route("Login")]
 		[HttpPost]
-		public ActionResult Login([FromBody] User user)
+		public ActionResult Login([FromForm] User user)
 		{
 			try
 			{
@@ -73,7 +73,16 @@ namespace Server.Controllers
 					return StatusCode(403, "Incorrect password.");
 				}
 
-				return Ok("Login successful.");
+				var obj = new 
+				{
+					CinemaID = existingUser.CinemaID,
+					Email = existingUser.Email,
+					FirstName = existingUser.FirstName,
+					LastName = existingUser.LastName,
+					PhoneNumber = existingUser.PhoneNumber
+				};
+
+				return Ok(obj);
 			}
 			catch (System.Exception e)
 			{

@@ -12,6 +12,7 @@ namespace Models
 		[Key]
 		public int ID { get; set; }
 
+		[JsonIgnore]
 		[Required]
 		public Cinema Cinema { get; set; }
 
@@ -27,6 +28,7 @@ namespace Models
 		[Required]
 		public int TicketPrice { get; set; }
 
+		[JsonIgnore]
 		public List<Ticket> Tickets { get; set; }
 	}
 }

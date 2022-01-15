@@ -123,6 +123,13 @@ export class CinemaView {
 					posterContainer.style.visibility = "visible";
 				});
 
+				movieContainer.addEventListener("click", event => {
+					movie.getInfo();
+					movie.getScreenings(this.cinema.id);
+					// render movie info
+					// render screenings
+				});
+
 				movieContainer.appendChild(titleContaier);
 				movieContainer.appendChild(posterContainer);
 				host.appendChild(movieContainer);
@@ -174,21 +181,12 @@ export class CinemaView {
 		submitBtn.addEventListener("click", async event => {
 			event.preventDefault();
 			if (form.checkValidity()) {
-				
-				// const formData = new FormData(form);
-				// formData.append("cinemaId", this.cinema.id);
-				// for (const pair of formData) {
-				// 	alert(pair[0] + ", " + pair[1]);
-				// } 
-				await this.cinema.login(form);
-				// const formData = new FormData();
-				// for (const el of form.elements) {
-				// 	if (el) {
-						
-				// 	alert(el.value);
-				// 	}
-				// }
+				const loggedIn = await this.cinema.login(form);
 
+				if (loggedIn === true) {
+					this.drawCurrentUser();
+					this.drawCurrentMovies();	
+				}
 			} else {
 				form.reportValidity();
 			}
@@ -240,6 +238,21 @@ export class CinemaView {
 		text.innerHTML = "Register";
 		submitBtn.appendChild(text);
 
+		submitBtn.addEventListener("click", async event => {
+			event.preventDefault();
+			if (form.checkValidity()) {
+				const registered = await this.cinema.register(form);
+
+				if (registered === true) {
+					this.drawCurrentUser();
+					this.drawCurrentMovies();	
+				}
+			} else {
+				form.reportValidity();
+			}
+		});
+
+
 		div.style.marginBottom = "20px";
 		div.appendChild(submitBtn);
 		form.appendChild(div);
@@ -272,5 +285,15 @@ export class CinemaView {
 		div.appendChild(container);
 
 		form.appendChild(div);
+	}
+
+	async drawCurrentUser() {
+		const host = this.container.querySelector(".userContainer");
+		host.innerHTML = "";
+
+		const title = document.createElement("h3");
+		title.innerHTML = `Logged in as: ${this.cinema.user.firstName} ${this.cinema.user.lastName}`;
+	
+		host.appendChild(title);
 	}
 }

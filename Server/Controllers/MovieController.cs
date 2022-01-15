@@ -44,5 +44,51 @@ namespace Server.Controllers
 				return BadRequest(e.Message);
 			}
 		}
+
+		[Route("GetInfo/{movieId}")]
+		[HttpGet]
+		public async Task<ActionResult> GetInfo(int movieId)
+		{
+			try
+			{
+				var movie = await Context.Movies
+					.Where(m => m.ID == movieId)
+					.Include(m => m.Genres)
+					.FirstOrDefaultAsync();
+
+				if (movie == null)
+				{
+					return StatusCode(404, "Movie not found.");
+				}
+
+				var data = new 
+				{
+					PlotSummary = movie.PlotSummary,
+					Length = movie.Length,
+					Country = movie.Country,
+					Director = movie.Director,
+					Genres = movie.Genres.Select(g => g.Name)
+				};
+
+				return Ok(data);
+			}
+			catch (System.Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+		}
+
+		[Route("GetScreenings/cinemaId/movieId")]
+		public async Task<ActionResult> GetScreenings(int cinemaId, int movieId)
+		{
+			try
+			{
+				 return Ok("");
+			}
+			catch (System.Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+		}
 	}
 }
