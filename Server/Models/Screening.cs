@@ -19,6 +19,7 @@ namespace Models
 		[Required]
 		public Movie Movie { get; set; }
 
+		[JsonIgnore]
 		[Required]
 		public Hall Hall { get; set; }
 

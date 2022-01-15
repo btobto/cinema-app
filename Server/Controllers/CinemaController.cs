@@ -18,11 +18,11 @@ namespace Server.Controllers
 
 		[Route("GetCinemas")]
 		[HttpGet]
-		public async Task<ActionResult> GetCinemas()
+		public ActionResult GetCinemas()
 		{
 			try
 			{
-				var cinemas = await Context.Cinemas.ToListAsync();
+				var cinemas = Context.Cinemas;
 				return Ok(cinemas);
 			}
 			catch (System.Exception e)

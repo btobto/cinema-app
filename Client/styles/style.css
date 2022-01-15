@@ -124,9 +124,46 @@ button {
 	z-index: -1;
 }
 
+.movieInfoContainer {
+	display: flex;
+	flex-direction: row;
+	align-content: flex-start;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.showInfo {
+	display: flex;
+	gap: 10px;
+	flex-direction: column;
+}
+
+.imgPoster {
+	/* width: 300px; */
+	/* width: 100%; */
+	max-width: 300px;
+	height: auto;
+}
+
+.infoBox {
+	padding: 10px;
+}
+
 @media screen and (max-width: 767px) {
 	.cinemaInfo {
 		display: flex;
 		justify-content: center;
 	}
+
+	.movieInfoContainer {
+		flex-direction: column;
+		/* justify-content: center; */
+		align-items: center;
+	}
+
+	/* .imgPoster {
+		width: 40%;
+		min-width: 200px;
+	} */
 }

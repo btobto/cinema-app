@@ -1,3 +1,5 @@
+import { MovieView } from "./movie.view.js";
+
 export class CinemaView {
 	constructor(cinema) {
 		this.cinema = cinema;
@@ -92,6 +94,7 @@ export class CinemaView {
 		const host = this.container.querySelector(".cinemaContent");
 		host.innerHTML = "";
 		host.classList.remove("showMenu");
+		host.classList.remove("showInfo");
 		host.classList.add("showMovies");
 
 		if (this.cinema.movies.length > 0) {
@@ -123,11 +126,12 @@ export class CinemaView {
 					posterContainer.style.visibility = "visible";
 				});
 
-				movieContainer.addEventListener("click", event => {
-					movie.getInfo();
-					movie.getScreenings(this.cinema.id);
-					// render movie info
-					// render screenings
+				movieContainer.addEventListener("click", async event => {
+					await movie.getInfo();
+					await movie.getScreenings(this.cinema.id);
+					const movieView = new MovieView(movie);
+					movieView.drawInfo(host);
+					movieView.drawScreenings(host);
 				});
 
 				movieContainer.appendChild(titleContaier);
@@ -145,6 +149,7 @@ export class CinemaView {
 		const host = this.container.querySelector(".cinemaContent");
 		host.innerHTML = "";
 		host.classList.remove("showMovies");
+		host.classList.remove("showInfo");
 		host.classList.add("showMenu");
 		
 		// title
@@ -203,6 +208,7 @@ export class CinemaView {
 		const host = this.container.querySelector(".cinemaContent");
 		host.innerHTML = "";
 		host.classList.remove("showMovies");
+		host.classList.remove("showInfo");
 		host.classList.add("showMenu");
 		
 		// title

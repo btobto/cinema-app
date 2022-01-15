@@ -78,17 +78,5 @@ namespace Server.Controllers
 			}
 		}
 
-		[Route("GetScreenings/cinemaId/movieId")]
-		public async Task<ActionResult> GetScreenings(int cinemaId, int movieId)
-		{
-			try
-			{
-				 return Ok("");
-			}
-			catch (System.Exception e)
-			{
-				return BadRequest(e.Message);
-			}
-		}
 	}
 }
