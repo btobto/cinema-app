@@ -8,6 +8,13 @@ body {
 	width: fit-content;
 } */
 
+table, td {
+	border: 1px solid #1A374D;
+	border-collapse: collapse;
+	padding: 10px;
+	font-size: 20px;
+}
+
 .btn {
 	display: flex;
 	align-items: center;
@@ -17,6 +24,13 @@ body {
 
 h1:hover {
 	cursor: pointer;
+	color: #B1D0E0;
+}
+
+.screeningCell:hover {
+	cursor: pointer;
+	background-color: #B1D0E0;
+	color: #1A374D;
 }
 
 label {
@@ -127,15 +141,13 @@ button {
 .movieInfoContainer {
 	display: flex;
 	flex-direction: row;
-	align-content: flex-start;
-	align-items: flex-start;
-	justify-content: space-between;
+	justify-content: flex-start;
 	gap: 20px;
 }
 
 .showInfo {
 	display: flex;
-	gap: 10px;
+	gap: 20px;
 	flex-direction: column;
 }
 

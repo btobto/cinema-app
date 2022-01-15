@@ -1,3 +1,5 @@
+import { ScreeningView } from "./screening.view.js";
+
 export class MovieView {
 	constructor(movie) {
 		this.movie = movie;
@@ -62,16 +64,60 @@ export class MovieView {
 	}
 
 	async drawScreenings(host) {
-		if (this.movie.screenings === null) {
-			return;
-		}
-
 		const screeningsInfoContainer = document.createElement("div");
 		screeningsInfoContainer.className = "screeningsInfoContainer";
 		
+		// title
+
+		let div = document.createElement("div");
+		let title = document.createElement("h2");
+		title.innerHTML = "Current screenings";
+		div.appendChild(title);
+		screeningsInfoContainer.appendChild(div);
+
+		// screenings table
+
+		div = document.createElement("div");
+
+		if (this.movie.screenings === null) {
+			title = document.createElement("h3");
+			title.innerHTML = "This movie is currently unavailable at this cinema.";
+			div.appendChild(title);
+		} else {
+			const dates = new Set(this.movie.screenings.map(s => s.date));
+			const table = document.createElement("table");
+
+			for (const date of dates) {
+				const row = document.createElement("tr");
+				const dateCell = document.createElement("td");
+				dateCell.innerHTML = date;
+				row.appendChild(dateCell);
+
+				for (const screening of this.movie.screenings) {
+					if (screening.date === date) {
+						const cell = document.createElement("td");
+						cell.innerHTML = screening.time;
+						cell.id = screening.id;
+						cell.className = "screeningCell";
+
+						cell.addEventListener("click", async event => {
+							const screeningView = new ScreeningView(screening);
+							await screeningView.drawScreening(host);
+						});
+
+						row.appendChild(cell);
+					}
+				}
+
+				table.appendChild(row);
+			}
+
+			div.appendChild(table);
+		}
+
+		screeningsInfoContainer.appendChild(div);
 
 		host.appendChild(screeningsInfoContainer);
-
 	}
 
 	generateInfo(host, label, text) {
