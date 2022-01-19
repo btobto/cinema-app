@@ -8,13 +8,11 @@ export class Cinema {
 		this.name = name;
 		this.city = city;
 		this.address = address;
-		this.movies = null;
+		this.movies = [];
 		this.user = null;
 	}
 
 	async getCurrentMovies() {
-		this.movies = [];
-
 		try {
 			const response = await fetch(`https://localhost:5001/Movie/GetCurrentMovies/${this.id}`);
 	
@@ -45,7 +43,7 @@ export class Cinema {
 	
 			if (response.ok) {
 				const data = await response.json();
-				this.user = new User(data.cinemaID, data.email, data.firstName, data.lastName, data.phoneNumber);
+				this.user = new User(data.id, data.cinemaID, data.email, data.firstName, data.lastName, data.phoneNumber);
 				return true;	
 			} else if (response.status === 403) {
 				alert("Invalid password.");
@@ -61,7 +59,7 @@ export class Cinema {
 	async register(form) {
 		const formData = new FormData(form);
 		formData.append("cinemaId", this.id);
-
+		
 		try {
 			const response = await fetch("https://localhost:5001/User/Register", {
 				method: "POST",
@@ -69,12 +67,15 @@ export class Cinema {
 			});
 	
 			if (response.ok) {
+				const data = await response.json();
+
 				const fname = form.elements["firstName"].value;
 				const lname = form.elements["lastName"].value;
 				const email = form.elements["email"].value;
 				const phoneNumber = form.elements["phoneNumber"].value;
 
-				this.user = new User(this.id, email, fname, lname, phoneNumber);
+				this.user = new User(data, this.id, email, fname, lname, phoneNumber);
+
 				return true;	
 			} else {
 				alert("Invalid input.");

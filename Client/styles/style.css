@@ -8,11 +8,37 @@ body {
 	width: fit-content;
 } */
 
-table, td {
+.screeningsTable, .screeningsTable > tr > td {
 	border: 1px solid #1A374D;
 	border-collapse: collapse;
 	padding: 10px;
 	font-size: 20px;
+}
+
+/* .seatsTable {
+	border: 1px solid black;
+	table-layout: fixed;
+} */
+
+.seat, .rowIndex {
+	/* border: 1px solid black; */
+	max-width: 50px;
+	text-align: right;
+	/* padding: 0;
+	margin: 0; */
+}
+
+.rowIndex {
+	padding-right: 20px;
+	padding-left: 10px;
+}
+
+.imgSeat {
+	max-width: 100%;
+}
+
+.emptySeat:hover, .userSeat:hover {
+	cursor: pointer;
 }
 
 .btn {
@@ -22,16 +48,17 @@ table, td {
 	border-radius: 2px solid black;
 }
 
-h1:hover {
-	cursor: pointer;
-	color: #B1D0E0;
-}
-
 .screeningCell:hover {
 	cursor: pointer;
 	background-color: #B1D0E0;
 	color: #1A374D;
 }
+
+/* .dateCell {
+	background-color: #6998AB;
+	color: #1A374D;
+	font-weight: bold;
+} */
 
 label {
 	font-size: 20px;
@@ -53,6 +80,7 @@ button {
 	margin: 15px;
 	overflow: hidden;
 	border-radius: 10px;
+	box-shadow: 0px 0px 30px 0px #1A374D;
 }
 
 .cinemaHeader {
@@ -69,6 +97,19 @@ button {
 	justify-content: center;
 	flex-grow: 1;
 	border: 4px;
+}
+
+.cinemaInfoContainer {
+	flex-grow: 15;
+}
+
+.cinemaTitle {
+	width: fit-content;
+}
+
+.cinemaTitle:hover {
+	cursor: pointer;
+	color: #B1D0E0;
 }
 
 .cinemaInfo {
@@ -93,6 +134,8 @@ button {
 
 .outline:hover {
 	cursor: pointer;
+	border-color: #B1D0E0;
+	color: #B1D0E0;
 }
 
 .cinemaContent {
@@ -138,6 +181,27 @@ button {
 	z-index: -1;
 }
 
+.imgShowcase {
+	vertical-align: bottom;
+	max-width: 100%;
+}
+
+.inputContainer {
+	margin-bottom: 15px;
+}
+
+.buttonContainer {
+	margin-bottom: 20px;
+}
+
+.formTitle {
+	margin-top: 0;
+}
+
+.summary {
+	font-size: 20px;
+}
+
 .movieInfoContainer {
 	display: flex;
 	flex-direction: row;
@@ -146,7 +210,6 @@ button {
 }
 
 .showInfo {
-	display: flex;
 	gap: 20px;
 	flex-direction: column;
 }
@@ -155,6 +218,7 @@ button {
 	/* width: 300px; */
 	/* width: 100%; */
 	max-width: 300px;
+	width: 40vw;
 	height: auto;
 }
 
@@ -162,10 +226,43 @@ button {
 	padding: 10px;
 }
 
+.showSeats {
+	flex-direction: column;
+	
+	justify-content: center;
+}
+
+.chairLegendContainer {
+	display: flex;
+	justify-content: center;
+}
+
+.legend {
+	display: flex;
+	justify-content: center;
+}
+
+.chairLegend {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	align-items: center;
+	flex-grow: 1;
+	flex-basis: 0;
+}
+
+.imgChairLegend {
+	width: 30%;
+}
+
 @media screen and (max-width: 767px) {
 	.cinemaInfo {
 		display: flex;
 		justify-content: center;
+	}
+
+	.headerBox {
+		align-items: center;
 	}
 
 	.movieInfoContainer {
@@ -175,7 +272,7 @@ button {
 	}
 
 	/* .imgPoster {
-		width: 40%;
+		width: 70%;
 		min-width: 200px;
 	} */
 }

@@ -7,8 +7,8 @@ export class MovieView {
 
 	async drawInfo(host) {
 		host.innerHTML = "";
-		host.classList.remove("showMovies");
-		host.classList.remove("showMenu");
+		host.className = "";
+		host.classList.add("cinemaContent");
 		host.classList.add("showInfo");
 		
 		// movie info
@@ -47,7 +47,7 @@ export class MovieView {
 
 		div = document.createElement("div");
 		text = document.createElement("p");
-		text.style.fontSize = "20px";
+		text.className = "summary";
 		text.innerHTML = this.movie.summary;
 		div.appendChild(text);
 		movieInfo.appendChild(div);
@@ -63,7 +63,7 @@ export class MovieView {
 		host.appendChild(movieInfoContainer);
 	}
 
-	async drawScreenings(host) {
+	async drawScreenings(host, user) {
 		const screeningsInfoContainer = document.createElement("div");
 		screeningsInfoContainer.className = "screeningsInfoContainer";
 		
@@ -86,10 +86,12 @@ export class MovieView {
 		} else {
 			const dates = new Set(this.movie.screenings.map(s => s.date));
 			const table = document.createElement("table");
+			table.className = "screeningsTable";
 
 			for (const date of dates) {
 				const row = document.createElement("tr");
 				const dateCell = document.createElement("td");
+				dateCell.className = "dateCell";
 				dateCell.innerHTML = date;
 				row.appendChild(dateCell);
 
@@ -101,8 +103,15 @@ export class MovieView {
 						cell.className = "screeningCell";
 
 						cell.addEventListener("click", async event => {
+							await screening.getHall();
+							await screening.getAllTickets();
+
+							if (user !== null) {
+								await screening.getUserTickets(user.id);
+							}
+
 							const screeningView = new ScreeningView(screening);
-							await screeningView.drawScreening(host);
+							await screeningView.drawScreening(host, user);
 						});
 
 						row.appendChild(cell);
@@ -122,9 +131,18 @@ export class MovieView {
 
 	generateInfo(host, label, text) {
 		let div = document.createElement("div");
-		let p = document.createElement("p");
-		p.innerHTML = `<b>${label}: </b>${text}`;
-		div.appendChild(p);
+
+		let paragraph = document.createElement("p");
+		paragraph.className = "summary";
+
+		let boldLabel = document.createElement("span");
+		boldLabel.style.fontWeight = "bold";
+		boldLabel.innerHTML = label + ":";
+
+		paragraph.appendChild(boldLabel);
+		paragraph.innerHTML += " " + text;
+
+		div.appendChild(paragraph);
 		host.appendChild(div);
 	}
 }

@@ -17,14 +17,15 @@ export class CinemaView {
 		cinemaHeader.className = "cinemaHeader";
 
 		const cinemaInfo = document.createElement("div");
-		cinemaInfo.className = "headerBox";
-		cinemaInfo.style.flexGrow = 15;
+		cinemaInfo.classList.add("headerBox");
+		cinemaInfo.classList.add("cinemaInfoContainer")
 
 		// name
 
 		const cinemaTitle = document.createElement("h1");
 		cinemaTitle.innerHTML = this.cinema.name;
-		cinemaTitle.className = "cinemaInfo";
+		cinemaTitle.classList.add("cinemaInfo");
+		cinemaTitle.classList.add("cinemaTitle");
 		cinemaTitle.addEventListener("click", event => {
 			this.drawCurrentMovies();
 		});
@@ -77,12 +78,13 @@ export class CinemaView {
 		cinemaHeader.appendChild(cinemaInfo);
 		cinemaHeader.appendChild(cinemaUser);
 
+		container.appendChild(cinemaHeader);
+
 		// available movies
 
 		const content = document.createElement("div");
-		content.classList.add("cinemaContent");
+		content.className = "cinemaContent";
 		
-		container.appendChild(cinemaHeader);
 		container.appendChild(content);
 
 		this.drawCurrentMovies();
@@ -93,8 +95,8 @@ export class CinemaView {
 	async drawCurrentMovies() {
 		const host = this.container.querySelector(".cinemaContent");
 		host.innerHTML = "";
-		host.classList.remove("showMenu");
-		host.classList.remove("showInfo");
+		host.className = "";
+		host.classList.add("cinemaContent");
 		host.classList.add("showMovies");
 
 		if (this.cinema.movies.length > 0) {
@@ -114,8 +116,7 @@ export class CinemaView {
 				posterContainer.className = "posterContainer";
 				const image = document.createElement("img");
 				image.src = movie.posterPath;
-				image.style.verticalAlign = "bottom";
-				image.style.maxWidth = "100%";
+				image.className = "imgShowcase";
 				posterContainer.appendChild(image);
 
 				movieContainer.addEventListener("mouseenter", event => {
@@ -131,7 +132,7 @@ export class CinemaView {
 					await movie.getScreenings(this.cinema.id);
 					const movieView = new MovieView(movie);
 					movieView.drawInfo(host);
-					movieView.drawScreenings(host);
+					movieView.drawScreenings(host, this.cinema.user);
 				});
 
 				movieContainer.appendChild(titleContaier);
@@ -148,8 +149,8 @@ export class CinemaView {
 	async drawLoginMenu() {
 		const host = this.container.querySelector(".cinemaContent");
 		host.innerHTML = "";
-		host.classList.remove("showMovies");
-		host.classList.remove("showInfo");
+		host.className = "";
+		host.classList.add("cinemaContent");
 		host.classList.add("showMenu");
 		
 		// title
@@ -157,7 +158,7 @@ export class CinemaView {
 		let div = document.createElement("div");
 		div.className = "inputDiv";
 		const title = document.createElement("h1");
-		title.style.marginTop = 0;
+		title.className = "formTitle";
 		title.innerHTML = "Log in";
 
 		const line = document.createElement("hr");
@@ -169,7 +170,6 @@ export class CinemaView {
 		// form
 
 		const form = document.createElement("form");
-		form.action = "javascript:this.cinema.checkLogin()"
 
 		this.drawInput(form, "email", "E-mail:", "email");
 		this.drawInput(form, "password", "Password:", "password");
@@ -197,7 +197,7 @@ export class CinemaView {
 			}
 		});
 
-		div.style.marginBottom = "20px";
+		div.className = "buttonContainer";
 		div.appendChild(submitBtn);
 		// form.appendChild(div);
 		host.appendChild(form);
@@ -207,8 +207,8 @@ export class CinemaView {
 	async drawRegisterMenu() {
 		const host = this.container.querySelector(".cinemaContent");
 		host.innerHTML = "";
-		host.classList.remove("showMovies");
-		host.classList.remove("showInfo");
+		host.className = "";
+		host.classList.add("cinemaContent");
 		host.classList.add("showMenu");
 		
 		// title
@@ -216,7 +216,7 @@ export class CinemaView {
 		let div = document.createElement("div");
 		div.className = "inputDiv";
 		const title = document.createElement("h1");
-		title.style.marginTop = 0;
+		title.className = "formTitle";
 		title.innerHTML = "Register";
 
 		const line = document.createElement("hr");
@@ -258,13 +258,11 @@ export class CinemaView {
 			}
 		});
 
-
-		div.style.marginBottom = "20px";
+		div.className = "buttonContainer";
 		div.appendChild(submitBtn);
 		form.appendChild(div);
 	
 		host.appendChild(form);
-
 	}
 
 	async drawInput(form, inputType, labelText, inputName) {
@@ -287,7 +285,7 @@ export class CinemaView {
 		input.name = inputName;
 		input.required = true;
 		container.appendChild(input);
-		div.style.marginBottom = "15px";
+		div.className = "inputContainer";
 		div.appendChild(container);
 
 		form.appendChild(div);

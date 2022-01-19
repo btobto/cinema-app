@@ -43,5 +43,35 @@ namespace Server.Controllers
 			}
 		}
 
+		[Route("GetHallInfo/{screeningId}")]
+		[HttpGet]
+		public async Task<ActionResult> GetHallInfo(int screeningId)
+		{
+			try
+			{
+				var screening = await Context.Screenings
+					.Where(s => s.ID == screeningId)
+					.Include(s => s.Hall)
+					.FirstOrDefaultAsync();
+				
+				if (screening == null)
+				{
+					return BadRequest("Invalid screening ID.");
+				}
+
+				var hall = new
+				{
+					Name = screening.Hall.Name,
+					Rows = screening.Hall.Rows,
+					SeatsPerRow = screening.Hall.SeatsPerRow
+				};
+
+				return Ok(hall);
+			}
+			catch (System.Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+		}
 	}
 }

@@ -60,6 +60,4 @@ export class Movie {
 			console.log(error);
 		}
 	}
-
-
 }

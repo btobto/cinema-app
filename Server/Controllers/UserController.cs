@@ -47,7 +47,7 @@ namespace Server.Controllers
 				Context.Users.Add(user);
 				Context.SaveChanges();
 
-				return Ok("Registration successful.");		
+				return Ok(user.ID);		
 			}
 			catch (System.Exception e)
 			{
@@ -75,6 +75,7 @@ namespace Server.Controllers
 
 				var obj = new 
 				{
+					ID = existingUser.ID,
 					CinemaID = existingUser.CinemaID,
 					Email = existingUser.Email,
 					FirstName = existingUser.FirstName,
