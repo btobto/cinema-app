@@ -41,6 +41,18 @@ body {
 	cursor: pointer;
 }
 
+.seatsContainer {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	gap: 10px;
+}
+
+.option {
+	text-decoration: underline;
+	margin: 0;
+}
+
 .btn {
 	display: flex;
 	align-items: center;
@@ -107,7 +119,7 @@ button {
 	width: fit-content;
 }
 
-.cinemaTitle:hover {
+.cinemaTitle:hover, .option:hover {
 	cursor: pointer;
 	color: #B1D0E0;
 }
@@ -121,6 +133,12 @@ button {
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 	gap: 10px;
+}
+
+.infoContainer {
+	display: flex;
+	flex-flow: column;
+	align-items: flex-end;
 }
 
 .outline {
@@ -268,6 +286,10 @@ button {
 	.movieInfoContainer {
 		flex-direction: column;
 		/* justify-content: center; */
+		align-items: center;
+	}
+
+	.infoContainer {
 		align-items: center;
 	}
 

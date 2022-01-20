@@ -47,32 +47,8 @@ export class CinemaView {
 		const userContainer = document.createElement("div");
 		userContainer.className = "userContainer";
 
-		// login button
+		this.drawUserButtons(userContainer);
 
-		const loginOutline = document.createElement("div");
-		loginOutline.classList.add("outline", "login");
-		loginOutline.addEventListener("click", event => {
-			this.drawLoginMenu();
-		});
-		const loginHeader = document.createElement("h3");
-		loginHeader.innerHTML = "Log in";
-
-		loginOutline.appendChild(loginHeader)
-
-		// register button
-
-		const registerOutline = document.createElement("div");
-		registerOutline.classList.add("outline", "register")
-		registerOutline.addEventListener("click", event => {
-			this.drawRegisterMenu();
-		});
-		const registerHeader = document.createElement("h3");
-		registerHeader.innerHTML = "Register";
-
-		registerOutline.appendChild(registerHeader)
-
-		userContainer.appendChild(loginOutline);
-		userContainer.appendChild(registerOutline);
 		cinemaUser.appendChild(userContainer);
 
 		cinemaHeader.appendChild(cinemaInfo);
@@ -292,12 +268,166 @@ export class CinemaView {
 	}
 
 	async drawCurrentUser() {
-		const host = this.container.querySelector(".userContainer");
+		const host = this.container.querySelector(".userContainer,.infoContainer");
 		host.innerHTML = "";
+		host.className = "infoContainer";
 
 		const title = document.createElement("h3");
 		title.innerHTML = `Logged in as: ${this.cinema.user.firstName} ${this.cinema.user.lastName}`;
-	
+		title.className = "cinemaInfo";
+
+		const logout = document.createElement("h4");
+		logout.className = "option";
+		logout.innerHTML = "Log out";
+
+		logout.addEventListener("click", event => {
+			this.cinema.user = null;
+
+			for (const movie of this.cinema.movies) {
+				for (const screening of movie.screenings) {
+					screening.tickets = [];
+					screening.userTickets = [];
+				}
+			}
+
+			this.drawUserButtons(host);
+			this.drawCurrentMovies();
+		});
+
+		const edit = document.createElement("h4");
+		edit.className = "option";
+		edit.innerHTML = "Edit info";
+
+		edit.addEventListener("click", event => {
+			this.drawEditForm();
+		});
+
 		host.appendChild(title);
+		host.appendChild(logout);
+		host.appendChild(edit);
 	}
+
+	drawUserButtons(host) {
+		host.innerHTML = "";
+		host.className = "userContainer";
+		
+		// login button
+
+		const loginOutline = document.createElement("div");
+		loginOutline.classList.add("outline", "login");
+		loginOutline.addEventListener("click", event => {
+			this.drawLoginMenu();
+		});
+		const loginHeader = document.createElement("h3");
+		loginHeader.innerHTML = "Log in";
+
+		loginOutline.appendChild(loginHeader)
+
+		// register button
+
+		const registerOutline = document.createElement("div");
+		registerOutline.classList.add("outline", "register")
+		registerOutline.addEventListener("click", event => {
+			this.drawRegisterMenu();
+		});
+		const registerHeader = document.createElement("h3");
+		registerHeader.innerHTML = "Register";
+
+		registerOutline.appendChild(registerHeader)
+
+		host.appendChild(loginOutline);
+		host.appendChild(registerOutline);
+	}
+
+	drawEditForm() {
+		const host = this.container.querySelector(".cinemaContent");
+		host.innerHTML = "";
+		host.className = "";
+		host.classList.add("cinemaContent");
+		host.classList.add("showMenu");
+		
+		// title
+
+		let div = document.createElement("div");
+		div.className = "inputDiv";
+		const title = document.createElement("h1");
+		title.className = "formTitle";
+		title.innerHTML = "Edit profile";
+
+		const line = document.createElement("hr");
+
+		div.appendChild(title);
+		div.appendChild(line);
+		host.appendChild(div);
+		
+		// form
+
+		const form = document.createElement("form");
+
+		this.drawInputWithValue(form, "text", "New first name:", "firstName", this.cinema.user.firstName);
+		this.drawInputWithValue(form, "text", "New last name:", "lastName", this.cinema.user.lastName);
+		this.drawInputWithValue(form, "email", "New e-mail:", "email", this.cinema.user.email);
+		this.drawInputWithValue(form, "tel", "New phone number:", "phoneNumber", this.cinema.user.phoneNumber);
+		this.drawInput(form, "password", "Confirm your password:", "password");
+
+		// submit button
+
+		div = document.createElement("div");
+		const submitBtn = document.createElement("button");
+		submitBtn.className = "outline";
+		const text = document.createElement("h3");
+		text.innerHTML = "Edit";
+		submitBtn.appendChild(text);
+
+		submitBtn.addEventListener("click", async event => {
+			event.preventDefault();
+			if (form.checkValidity()) {
+				alert("attempting edit");
+					const edited = await this.cinema.editUser(form);
+
+					if (edited === true) {
+						alert("Info changed successfully.");
+
+						this.drawCurrentUser();
+						this.drawCurrentMovies();
+					}
+			} else {
+				form.reportValidity();
+			}
+		});
+
+		div.className = "buttonContainer";
+		div.appendChild(submitBtn);
+		form.appendChild(div);
+	
+		host.appendChild(form);
+	}
+	
+	async drawInputWithValue(form, inputType, labelText, inputName, value) {
+		let div = document.createElement("div");
+
+		// label div
+
+		let container = document.createElement("div");
+		let label = document.createElement("label");
+		label.htmlFor = inputName;
+		label.innerHTML = labelText;
+		container.appendChild(label);
+		div.appendChild(container);
+
+		// input div
+
+		container = document.createElement("div");
+		let input = document.createElement("input");
+		input.type = inputType;
+		input.name = inputName;
+		input.value = value;
+		input.required = true;
+		container.appendChild(input);
+		div.className = "inputContainer";
+		div.appendChild(container);
+
+		form.appendChild(div);
+	}
+
 }

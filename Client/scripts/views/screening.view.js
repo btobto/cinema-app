@@ -38,6 +38,7 @@ export class ScreeningView {
 		// seats
 
 		const seatsContainer = document.createElement("div");
+		seatsContainer.className = "seatsContainer";
 
 		// hall name
 
@@ -153,7 +154,6 @@ export class ScreeningView {
 
 		seatsContainer.appendChild(seatsTableContainer);
 
-		host.append(seatsContainer);
 
 		// buttons
 
@@ -200,8 +200,9 @@ export class ScreeningView {
 		});
 
 		buttonsContainer.appendChild(submitBtn);
+		seatsContainer.appendChild(buttonsContainer);
 
-		host.appendChild(buttonsContainer);
+		host.append(seatsContainer);
 	}
 
 	generateLegend(host, source, text) {

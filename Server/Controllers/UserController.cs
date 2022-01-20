@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Helpers;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Server.Controllers
 {
@@ -93,21 +95,42 @@ namespace Server.Controllers
 			}
 		}
 
-		[Route("DeleteAccount/{password}")]
-		[HttpDelete]
-		public ActionResult DeleteAccount([FromBody] User user, string password)
+		[Route("EditUser")]
+		[HttpPut]
+		public async Task<ActionResult> EditUser([FromForm] User user)
 		{
 			try
 			{
-				if (!PasswordHasher.Verify(password, user.Password))
-				{
-					return BadRequest("Incorrect password.");
-				}
-				
-				Context.Users.Remove(user);
-				Context.SaveChanges();
+				var existingUser = await Context.Users
+					.Where(u => u.ID == user.ID)
+					.FirstOrDefaultAsync();
 
-				return Ok("Account deleted successfully.");
+				if (existingUser == null)
+				{
+					return BadRequest("A user with that ID doesn't exist.");
+				}
+
+				var userWithEmail = await Context.Users
+					.Where(u => u.Email == user.Email && u.ID != user.ID)
+					.FirstOrDefaultAsync();
+
+				if (userWithEmail != null)
+				{
+					return StatusCode(409, "E-mail address taken.");
+				}
+
+				if (!PasswordHasher.Verify(user.Password, existingUser.Password))
+				{
+					return StatusCode(403, "Incorrect password.");
+				}
+
+				existingUser.FirstName = user.FirstName;
+				existingUser.LastName = user.LastName;
+				existingUser.Email = user.Email;
+				existingUser.PhoneNumber = user.PhoneNumber;
+				await Context.SaveChangesAsync();
+
+				return Ok("Edit successful.");
 			}
 			catch (System.Exception e)
 			{
