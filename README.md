@@ -1,12 +1,23 @@
 # Web cinema app
-<img src="./pictures/erd.png">
+## Aplikacija za rezervisanje bioskopskih karata
+![erd](./pictures/erd.png)
 
-<img src="./pictures/ss1.png">
+## Pocetni ekran
+![ss1](./pictures/ss1.png)
+Na pocetnom ekranu korisniku se prikaziju svi filmovi za koje bioskop trenutno pruza projekcije.
 
-<img src="./pictures/ss2.png">
+## Registracija
+![ss2](./pictures/ss2.png)
+Korisnik ima mogucnost da se registruje ili uloguje ukoliko vec ima nalog.
+Ulogovani korisnici mogu da rezervisu karte. Korisnik takodje moze da izmeni profil.
 
-<img src="./pictures/ss3.png">
+## Film
+![ss3](./pictures/ss3.png)
+![ss4](./pictures/ss4.png)
+Nakon biranja filma, prikazuju se dodatne informacije o izabranom filmu kao i sve projekcije koje trenutno bioskop nudi za dati film.
 
-<img src="./pictures/ss4.png">
 
-<img src="./pictures/ss5.png">
+## Rezervisanje karata
+![ss5](./pictures/ss5.png)
+Korisnik klikom na projekcije moze da vidi broj slobodnih mesta. Ukoliko nije ulogovan a pokusa da napravi rezervacije, korisnik se obavestava da mora da ima nalog da bi rezervisao karte.
+Nakon logovanja, korisnik moze da rezervise maksimalno 5 karata. Korisnik takodje moze da brise rezervacije i menja ih.
