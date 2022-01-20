@@ -382,15 +382,14 @@ export class CinemaView {
 		submitBtn.addEventListener("click", async event => {
 			event.preventDefault();
 			if (form.checkValidity()) {
-				alert("attempting edit");
-					const edited = await this.cinema.editUser(form);
+				const edited = await this.cinema.editUser(form);
 
-					if (edited === true) {
-						alert("Info changed successfully.");
+				if (edited === true) {
+					alert("Info changed successfully.");
 
-						this.drawCurrentUser();
-						this.drawCurrentMovies();
-					}
+					this.drawCurrentUser();
+					this.drawCurrentMovies();
+				}
 			} else {
 				form.reportValidity();
 			}

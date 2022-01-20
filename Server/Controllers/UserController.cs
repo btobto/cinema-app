@@ -24,12 +24,12 @@ namespace Server.Controllers
 		{
 			try
 			{
-				if (string.IsNullOrWhiteSpace(user.FirstName))
+				if (user.FirstName == null || string.IsNullOrWhiteSpace(user.FirstName))
 				{
 					return BadRequest("Invalid first name value.");
 				}
 
-				if (string.IsNullOrWhiteSpace(user.LastName))
+				if (user.LastName == null || string.IsNullOrWhiteSpace(user.LastName))
 				{
 					return BadRequest("Invalid last name value.");
 				}

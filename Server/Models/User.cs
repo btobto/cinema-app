@@ -29,7 +29,8 @@ namespace Models
 		[MaxLength(50)]
 		public string LastName { get; set; }
 		
-		// [Phone]
+		[Phone]
+		[MinLength(8)]
 		[MaxLength(15)]
 		public string PhoneNumber { get; set; }
 
