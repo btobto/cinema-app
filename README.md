@@ -9,6 +9,7 @@ Na pocetnom ekranu korisniku se prikaziju svi filmovi za koje bioskop trenutno p
 ## Registracija
 ![ss2](./pictures/ss2.png)
 Korisnik ima mogucnost da se registruje ili uloguje ukoliko vec ima nalog.
+Ulogovani korisnici mogu da rezervisu karte. Korisnik takodje moze da izmeni profil.
 
 ## Film
 ![ss3](./pictures/ss3.png)
