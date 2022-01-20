@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -18,5 +20,8 @@ namespace Models
 
 		[Required]
 		public int SeatsPerRow { get; set; }
+
+		[JsonIgnore]
+		public List<Screening> Screenings;
 	}
 }

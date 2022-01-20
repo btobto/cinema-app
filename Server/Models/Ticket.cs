@@ -10,10 +10,12 @@ namespace Models
 		public int ID { get; set; }
 
 		[Required]
-		public Screening Screening { get; set; }
+		[ForeignKey("ScreeningID")]
+		public int ScreeningID { get; set; }
 
 		[Required]
-		public User User { get; set; }
+		[ForeignKey("UserID")]
+		public int UserID { get; set; }
 
 		[Required]
 		public int Row { get; set; }

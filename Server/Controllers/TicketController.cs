@@ -24,7 +24,7 @@ namespace Server.Controllers
 			try
 			{
 				var tickets = Context.Tickets
-					.Where(t => t.Screening.ID == screeningId);
+					.Where(t => t.ScreeningID == screeningId);
 
 				var objs = await tickets.Select(t => new
 				{
@@ -47,7 +47,7 @@ namespace Server.Controllers
 			try
 			{
 				var tickets = Context.Tickets
-					.Where(t => t.Screening.ID == screeningId && t.User.ID == userId);
+					.Where(t => t.ScreeningID == screeningId && t.UserID == userId);
 
 				var objs = await tickets.Select(t => new
 				{
@@ -63,5 +63,71 @@ namespace Server.Controllers
 				return BadRequest(e.Message);
 			}
 		}
+
+		[Route("RemoveTicket/{ticketId}")]
+		[HttpDelete]
+		public async Task<ActionResult> RemoveTicket(int ticketId)
+		{
+			try
+			{
+				var ticket = await Context.Tickets
+					.Where(t => t.ID == ticketId)
+					.FirstOrDefaultAsync();
+
+				if (ticket == null)
+				{
+					return BadRequest("Invalid ticket ID.");
+				}
+
+				Context.Tickets.Remove(ticket);
+				await Context.SaveChangesAsync();
+
+				return Ok("Ticket successfully deleted.");
+			}
+			catch (System.Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+		}
+
+		[Route("ReserveTicket")]
+		[HttpPost]
+		public async Task<ActionResult> ReserveTicket([FromBody] Ticket ticket)
+		{
+			try
+			{
+				var hall = await Context.Screenings
+					.Where(s => s.ID == ticket.ScreeningID)
+					.Include(s => s.Hall)
+					.Select(s => s.Hall)
+					.FirstOrDefaultAsync();
+
+				if (hall == null)
+				{
+					return BadRequest("Hall not found.");
+				}
+
+				if (ticket.Row < 1 || ticket.Row > hall.Rows)
+				{
+					return BadRequest("Invalid row number.");
+				}
+
+				if (ticket.Seat < 1 || ticket.Seat > hall.SeatsPerRow)
+				{
+					return BadRequest("Invalid seat number.");
+
+				}
+
+				Context.Tickets.Add(ticket);
+				await Context.SaveChangesAsync();
+
+				return Ok(ticket.ID);
+			}
+			catch (System.Exception e)
+			{
+				return BadRequest(e.Message);
+			}
+		}
+
 	}
 }

@@ -61,7 +61,9 @@ namespace Server.Controllers
 		{
 			try
 			{
-				var existingUser = Context.Users.Where(p => p.Email == user.Email && p.CinemaID == user.CinemaID).FirstOrDefault();
+				var existingUser = Context.Users.
+					Where(p => p.Email == user.Email && p.CinemaID == user.CinemaID)
+					.FirstOrDefault();
 
 				if (existingUser == null)
 				{
