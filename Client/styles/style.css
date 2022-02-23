@@ -98,7 +98,6 @@ button {
 .cinemaHeader {
 	background-color: #1A374D;
 	display: flex;
-	flex-wrap: wrap;	
 	align-items: stretch;
 }
 
@@ -273,10 +272,14 @@ button {
 	width: 30%;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 750px) {
 	.cinemaInfo {
 		display: flex;
 		justify-content: center;
+	}
+
+	.cinemaHeader {
+		flex-direction: column;
 	}
 
 	.headerBox {

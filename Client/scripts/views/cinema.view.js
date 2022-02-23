@@ -241,32 +241,6 @@ export class CinemaView {
 		host.appendChild(form);
 	}
 
-	async drawInput(form, inputType, labelText, inputName) {
-		let div = document.createElement("div");
-
-		// label div
-
-		let container = document.createElement("div");
-		let label = document.createElement("label");
-		label.htmlFor = inputName;
-		label.innerHTML = labelText;
-		container.appendChild(label);
-		div.appendChild(container);
-
-		// input div
-
-		container = document.createElement("div");
-		let input = document.createElement("input");
-		input.type = inputType;
-		input.name = inputName;
-		input.required = true;
-		container.appendChild(input);
-		div.className = "inputContainer";
-		div.appendChild(container);
-
-		form.appendChild(div);
-	}
-
 	async drawCurrentUser() {
 		const host = this.container.querySelector(".userContainer,.infoContainer");
 		host.innerHTML = "";
@@ -364,10 +338,10 @@ export class CinemaView {
 
 		const form = document.createElement("form");
 
-		this.drawInputWithValue(form, "text", "New first name:", "firstName", this.cinema.user.firstName);
-		this.drawInputWithValue(form, "text", "New last name:", "lastName", this.cinema.user.lastName);
-		this.drawInputWithValue(form, "email", "New e-mail:", "email", this.cinema.user.email);
-		this.drawInputWithValue(form, "tel", "New phone number:", "phoneNumber", this.cinema.user.phoneNumber);
+		this.drawInput(form, "text", "New first name:", "firstName", this.cinema.user.firstName);
+		this.drawInput(form, "text", "New last name:", "lastName", this.cinema.user.lastName);
+		this.drawInput(form, "email", "New e-mail:", "email", this.cinema.user.email);
+		this.drawInput(form, "tel", "New phone number:", "phoneNumber", this.cinema.user.phoneNumber);
 		this.drawInput(form, "password", "Confirm your password:", "password");
 
 		// submit button
@@ -401,8 +375,8 @@ export class CinemaView {
 	
 		host.appendChild(form);
 	}
-	
-	async drawInputWithValue(form, inputType, labelText, inputName, value) {
+
+	async drawInput(form, inputType, labelText, inputName, value) {
 		let div = document.createElement("div");
 
 		// label div
@@ -420,7 +394,11 @@ export class CinemaView {
 		let input = document.createElement("input");
 		input.type = inputType;
 		input.name = inputName;
-		input.value = value;
+
+		if (value != null ) {
+			input.value = value;
+		}
+		
 		input.required = true;
 		container.appendChild(input);
 		div.className = "inputContainer";
@@ -428,5 +406,4 @@ export class CinemaView {
 
 		form.appendChild(div);
 	}
-
 }

@@ -233,24 +233,6 @@ export class ScreeningView {
 			return false;
 		}
 
-		// function compareTickets(a, b) {
-		// 	if (a.row > b.row || (a.row === b.row && a.seat > b.seat)) {
-		// 		return 1;
-		// 	} else if (a.row < b.row || a.seat < b.seat) {
-		// 		return -1;
-		// 	}
-		// 	return 0;
-		// };
-
-		// let sorted1 = tickets1.sort(compare);
-		// let sorted2 = tickets2.sort(compare);
-
-		// for (let i = 0; i < sorted1.length; i++) {
-		// 	if (compareTickets(sorted1[i], sorted2[i]) !== 0) {
-		// 		return false;
-		// 	}
-		// }
-
 		for (const ticket of tickets2) {
 			const found = tickets1.find(t => t.row === ticket.row && t.seat === ticket.seat);
 			if (found === undefined) {
