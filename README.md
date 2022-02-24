@@ -12,7 +12,6 @@ Korisnik ima mogucnost da se registruje ili uloguje ukoliko vec ima nalog.
 Ulogovani korisnici mogu da rezervisu karte. Korisnik takodje moze da izmeni profil.
 
 ## Film
-![ss3](./pictures/ss3.png)
 ![ss4](./pictures/ss4.png)
 Nakon biranja filma, prikazuju se dodatne informacije o izabranom filmu kao i sve projekcije koje trenutno bioskop nudi za dati film.
 
