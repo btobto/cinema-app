@@ -1,6 +1,5 @@
 # Web cinema app
 ## Aplikacija za rezervisanje bioskopskih karata
-![erd](./pictures/erd.png)
 
 ## Pocetni ekran
 ![ss1](./pictures/ss1.png)
